@@ -26,6 +26,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/flask-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-api:latest
           
   
