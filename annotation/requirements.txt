@@ -1,0 +1,2 @@
+label-studio==1.13.0 
+label-studio-sdk==1.0.4
