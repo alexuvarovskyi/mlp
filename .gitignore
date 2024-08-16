@@ -5,3 +5,4 @@ data/labels.json
 .lh/
 labeling/
 launch.json
+.DS_Store
