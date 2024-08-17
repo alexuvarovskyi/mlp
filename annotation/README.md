@@ -37,3 +37,18 @@ python add_data_label_studio.py \
 --project_name 'Init Object Detection Project' \
 --local_dir /path/to/images/data/
 ```
+
+## Check Data
+We used a Cleanlab as a tool for check dataset correctness
+install 
+```bash
+pip install -r requirements.txt
+```
+Then we need to create predictions for the dataset.
+
+
+It can be done by running `inference_yolov8.py` For this you need to pass in the script the data path and the path to the model weights
+
+
+Then pass in the `check_data.py` script the path to the data and the path to the predictions and run it
+We will see the correctness score of the dataset
