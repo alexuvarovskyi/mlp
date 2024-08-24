@@ -45,3 +45,17 @@ Usage:
 ```bash
 python model_benchmark/model_benchmark.py --image_directory /path/to/images --batch_size <int>
 ```
+
+
+## Streaming 
+Developed code is for YOLO like image dataset
+
+```bash
+export AWS_ACCESS_KEY_ID=<key>
+export AWS_SECRET_ACCESS_KEY=<key>
+
+python create_streaming_dataset.py --yolo_dir /path/to/yolo/dataset --output_dir /path/to/output/dataset
+aws s3 cp --recursive /path/to/output/dataset s3://<bucket_name>/path/to/output/dataset
+```
+
+For reeading the dataset, pass the needed parameters to the `read_streaming_dataset.py` script and use the dataloader from it.
