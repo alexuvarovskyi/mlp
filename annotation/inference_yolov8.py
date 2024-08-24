@@ -2,6 +2,7 @@ import os
 import json
 from ultralytics import YOLO
 from PIL import Image
+import argparse
 
 # Mapping class names to indices for filtering
 CLASS_NAMES = {0: "person", 1: "car"}
@@ -77,11 +78,18 @@ def inference_yolov8_to_coco(image_dir, model_path, output_path):
 
     print(f"COCO annotations saved to {output_path}")
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--image_dir', type=str, help='Path to the directory with images')
+    parser.add_argument('--model_path', type=str, help='Path to the YOLOv5 model')
+    parser.add_argument('--output_path', type=str, help='Path to save the COCO annotations')
 
 
 if __name__ == "__main__":
-    image_dir = '/Users/alexuvarovskiy/Documents/mlp/data/images'
-    model_path = 'yolov8x.pt'  # or your specific model path
-    output_path = '/Users/alexuvarovskiy/Documents/mlp/annotation/predictions.json'
+    args = parse_args()
 
-    inference_yolov8_to_coco(image_dir, model_path, output_path)
+    inference_yolov8_to_coco(
+        args.image_dir, 
+        args.model_path, 
+        args.output_path
+    )

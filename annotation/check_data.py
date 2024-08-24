@@ -1,10 +1,20 @@
 import json
 import numpy as np
+import argparse
+
 from cleanlab.object_detection.filter import find_label_issues
 from cleanlab.object_detection.rank import get_label_quality_scores
 from cleanlab.object_detection.summary import visualize
 
-# Path to your COCO annotations
+
+class DictAction(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        new_dict = {}
+        for item in values:
+            key, value = item.split('=')
+            new_dict[int(key)] = value
+        setattr(namespace, self.dest, new_dict)
+
 
 def generate_mock_predictions(coco_data, num_classes=2, max_boxes_per_image=10):
     """
@@ -28,7 +38,6 @@ def generate_mock_predictions(coco_data, num_classes=2, max_boxes_per_image=10):
     return predictions
 
 
-# Convert COCO annotations to Cleanlab format
 def coco_to_cleanlab(coco_data):
     labels = []
     for image in coco_data['images']:
@@ -63,24 +72,20 @@ def coco_to_mmdet(coco_annotations, num_classes):
         filename = "images/" + image_info['file_name']
         mmdet_predictions[filename] = [np.empty((0, 5), dtype=np.float32) for _ in range(num_classes)]
 
-    # Populate the predictions with bounding boxes from COCO annotations
     for annotation in coco_annotations['annotations']:
         image_id = annotation['image_id']
         filename = image_id_to_filename[image_id]
         category_id = annotation['category_id']
         
-        # Only process category IDs that are within the number of classes
         if category_id < num_classes:
             bbox = annotation['bbox']  # COCO bbox is [x_min, y_min, width, height]
             score = annotation.get('score', 1.0)  # Default score to 1.0 if not provided
             
-            # Convert COCO bbox to [x_min, y_min, x_max, y_max, score]
             x_min, y_min, width, height = bbox
             x_max = x_min + width
             y_max = y_min + height
             mmdet_bbox = np.array([x_min, y_min, x_max, y_max, score], dtype=np.float32)
 
-            # Append the bounding box to the corresponding class array
             mmdet_predictions[filename][category_id] = np.vstack([mmdet_predictions[filename][category_id], mmdet_bbox])
 
     return mmdet_predictions
@@ -119,14 +124,21 @@ def compute_mistakes_score(
             visualize(image_path, label=label, prediction=prediction, class_names=classes_mapping, overlay=False)
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description='Check data for mistakes')
+    parser.add_argument('--coco_ann_path', type=str, help='Path to the COCO annotations JSON file')
+    parser.add_argument('--preds_path', type=str, help='Path to the predictions JSON file')
+    parser.add_argument('--classes_mapping', nargs='+', action=DictAction, help='Configuration in key=value format')
+    parser.add_argument('--data_dir', type=str, help='Path to the directory containing the images')
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    coco_annotations_path = '/Users/alexuvarovskiy/Documents/mlp_dataset/data/result.json'
-    preds_path = '/Users/alexuvarovskiy/Documents/mlp/annotation/predictions.json'
-    classes_mapping = {0: "person", 1: "car"}
+    args = parse_args()
 
     compute_mistakes_score(
-        coco_annotations_path, 
-        preds_path, 
-        classes_mapping, 
-        data_dir='/Users/alexuvarovskiy/Documents/mlp_dataset/data/images/'
+        args.coco_ann_path, 
+        args.preds_path, 
+        args.classes_mapping, 
+        args.data_dir
     )
