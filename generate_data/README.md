@@ -1,7 +1,7 @@
 # Synthetic Data Generation
 
 
-We are solving an pbejct detection taks, so we are working with images. And we tried two ways of generating data, the first:
+We are solving an obejct detection taks, so we are working with images. And we tried two ways of generating data, the first:
 - Generate annotatiopn by ChatGPT4o
 - Generate photorealystic images by DALL-E 3
 
@@ -9,7 +9,7 @@ We are solving an pbejct detection taks, so we are working with images. And we t
 
 To do this install Openai Python SDK
 ```bash
-pip install openai
+pip install openai==1.40.3
 ```
 
 ## Generate annotations
