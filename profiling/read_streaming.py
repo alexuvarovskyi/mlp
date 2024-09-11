@@ -3,6 +3,8 @@ from streaming import StreamingDataset
 from torchvision.transforms import Compose, Resize, ToTensor
 import torch
 
+import argparse
+
 
 transforms = Compose([
         Resize((256, 256)),
@@ -17,13 +19,18 @@ def collate_fn(batch):
     }
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description='Streaming data reading profiling')
+    parser.add_argument('--local', type=str, default='/tmp/streaming_read')
+    parser.add_argument('--remote', type=str, default='s3://mlp-data-2024/streaming')
+    parser.add_argument('--batch_size', type=int, default=4)
+    return parser.parse_args()
 
 
 if __name__ == "__main__":
-    remote = 's3://mlp-data-2024/streaming'
-    local = '/Users/alexuvarovskiy/Documents/mlp/profiling/streaming_read____'
+    args = parse_args()
 
-    dataset = StreamingDataset(local=local, remote=remote, shuffle=True, batch_size=4)
+    dataset = StreamingDataset(local=args.local, remote=args.remote, shuffle=True, batch_size=args.batch_size)
     sample = dataset[3]
     img = sample['image']
     ann = sample['label']
@@ -33,5 +40,3 @@ if __name__ == "__main__":
         print(i, sample['image'].shape, sample['label'])
         if i == 10:
             break
-    
-    ### Process the dataset

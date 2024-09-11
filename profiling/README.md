@@ -59,3 +59,7 @@ aws s3 cp --recursive /path/to/output/dataset s3://<bucket_name>/path/to/output/
 ```
 
 For reeading the dataset, pass the needed parameters to the `read_streaming_dataset.py` script and use the dataloader from it.
+    
+```bash
+python read_streaming_dataset.py --local <local> --remote <remote> --batch_size <int>
+```
