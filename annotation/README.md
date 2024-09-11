@@ -37,3 +37,34 @@ python add_data_label_studio.py \
 --project_name 'Init Object Detection Project' \
 --local_dir /path/to/images/data/
 ```
+
+## Check Data
+We used a Cleanlab as a tool for check dataset correctness
+install 
+```bash
+pip install -r requirements.txt
+```
+Then we need to create predictions for the dataset.
+
+
+It can be done by running `inference_yolov8.py` For this you need to pass in the script the data path and the path to the model weights
+```bash
+python inference_yolov8.py \
+--image_dir /path/to/images/dir \
+--model_path /path/to/model/or/weights \
+--output_path /path/to/save/coco_predictions/
+```
+
+
+Then run the `check_data.py` script the path to the data and the path to the predictions and run it
+```bash
+python check_data.py \
+--coco_ann_path /path/to/gt/coco/annotations.json/ \
+--preds_path /path/to/predictions.json
+--classes_mapping 0=person 1=car \ # according to the dataset
+--data_dir /path/to/images/
+```
+And as the output it will show as visualizations of the data with mistakes, and the avarage image quality annotation score
+
+For our self labelled dataset we got the `Average quality score 0.8439354990876237`, that is not very bad, but we can improve it by adding more data checks.<br>
+Most of the mistakes are in the localization of the objects in the crowded scenes, and the quality of the images is good.

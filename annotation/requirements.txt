@@ -1,2 +1,4 @@
 label-studio==1.13.0 
 label-studio-sdk==1.0.4
+cleanlab==2.6.6
+ultralytics==8.2.78
