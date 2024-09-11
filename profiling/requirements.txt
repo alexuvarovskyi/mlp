@@ -1,5 +1,5 @@
-pandas
-openpyxl
-pyarrow
-fastparquet
-tables
+pandas==2.2.2
+openpyxl==3.1.5
+pyarrow==17.0.0
+fastparquet==2024.5.0
+tables==3.10.1
