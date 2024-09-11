@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: my-python-app-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: my-python-app-container
+        image: alexuvarovskii/flask-app:latest
+        command: ["flask", "run", "--host=0.0.0.0", "--port=5050"]
+      restartPolicy: OnFailure
