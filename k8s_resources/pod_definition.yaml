@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-python-app-pod
+spec:
+  containers:
+  - name: my-python-app-container
+    image: alexuvarovskii/flask-app:latest
+    ports:
+    - containerPort: 5050
