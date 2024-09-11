@@ -51,3 +51,36 @@ kubectl apply -f ./minio_resources/minio-pod.yaml
 kubectl port-forward minio 9000 9000
 kubectl port-forward minio 9001 9001
 ```
+
+## S3 Client for Minio
+To use minio client, install reqirements
+   
+```bash
+pip install -r requirements.txt
+```
+
+To use the client, use the following code:
+
+```python
+from s3_client import S3Client
+access_key = 'minio'
+secret_key = 'minio123'
+bucket_name = 'mlp-test'
+file_path = 'README.md'
+
+client = S3Client(access_key, secret_key)
+
+client.create_bucket(bucket_name)
+client.upload_file(file_path, bucket_name)
+
+content = client.read_file(bucket_name, file_path)
+print(content.decode('utf-8'))
+
+client.delete_file(bucket_name, file_path)
+client.delete_bucket(bucket_name)
+```
+
+To run tests, use the following command:
+
+```bash
+pytest -ss s3_client_tests.py```
