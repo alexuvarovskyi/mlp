@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: minio
+  name: minio
+spec:
+  containers:
+  - name: minio
+    image: quay.io/minio/minio
+    command:
+    - /bin/bash
+    - -c
+    args: 
+    - minio server /data --console-address :9001
+    env:
+    - name: MINIO_ROOT_USER
+      value: minio
+    - name: MINIO_ROOT_PASSWORD
+      value: minio123
+    - name: MINIO_BROWSER_LOGIN_ANIMATION
+      value: 'off'
+  volumes:
+  - name: localvolume
+    hostPath:
+      path: /Users/alexuvarovskiy/Documents/minio/data
+      type: DirectoryOrCreate
