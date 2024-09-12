@@ -1,0 +1,12 @@
+data/images
+data/labels
+data/labels.json
+.history/
+.lh/
+labeling/
+launch.json
+.DS_Store
+.vscode/
+.pytest_cache/
+__pycache__/
+wandb/
