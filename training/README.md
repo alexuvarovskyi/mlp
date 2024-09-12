@@ -99,3 +99,15 @@ The following hyperparameters were used during training:
 - Pytorch 2.4.0+cu121
 - Datasets 2.21.0
 - Tokenizers 0.19.1
+
+## Evaluation results
+| Model    |mAP |
+| -------- | ------- |
+| Our  | 89*    |
+| Yolov5 | 52.2     |
+| RtDETR    | 54.8    |
+
+
+
+
+* mAP was calculated on the COCO10k dataset, and this value is estimated on full dataset
