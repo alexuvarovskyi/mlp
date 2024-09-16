@@ -108,6 +108,10 @@ The following hyperparameters were used during training:
 | RtDETR    | 54.8    |
 
 
-
-
 * mAP was calculated on the COCO10k dataset, and this value is estimated on full dataset
+
+# Tests
+Testing out module contains in three parts:
+- Testing the code
+- Testing the model
+- Testing the dataset

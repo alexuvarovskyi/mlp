@@ -10,3 +10,5 @@ pillow==10.4.0
 datasets==2.21.0
 PyYAML==6.0.2
 wandb==0.17.7
+pytest==8.3.3
+pycocotools==2.0.8

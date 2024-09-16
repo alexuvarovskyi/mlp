@@ -76,11 +76,8 @@ class PyTorchDetectionDataset(Dataset):
     def __getitem__(self, idx):
         _, image, annotations = self.dataset[idx]
 
-        # Convert image to RGB numpy array
-        image = image[:, :, ::-1]
         boxes = annotations.xyxy
         categories = annotations.class_id
-
         if self.transform:
             transformed = self.transform(
                 image=image,
@@ -90,7 +87,6 @@ class PyTorchDetectionDataset(Dataset):
             image = transformed["image"]
             boxes = transformed["bboxes"]
             categories = transformed["category"]
-
 
         formatted_annotations = self.annotations_as_coco(
             image_id=idx, categories=categories, boxes=boxes)
