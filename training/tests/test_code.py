@@ -1,10 +1,11 @@
 import torch
 import pytest
-from transformers.trainer_utils import EvalPrediction
-from dataclasses import dataclass
-from src.evaluation import MAPEvaluator
 import numpy as np
 import supervision as sv
+from transformers.trainer_utils import EvalPrediction
+from dataclasses import dataclass
+
+from src.evaluation import MAPEvaluator
 
 
 @dataclass

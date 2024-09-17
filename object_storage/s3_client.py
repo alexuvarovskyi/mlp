@@ -1,10 +1,16 @@
 import boto3
-
+import os
 
 class S3Client:
     def __init__(self, access_key, secret_key, endpoint_url='http://localhost:9000'):
         try:
             self.s3 = boto3.client(
+                's3',
+                aws_access_key_id=access_key,
+                aws_secret_access_key=secret_key,
+                endpoint_url=endpoint_url
+            )
+            self.s3_resource = boto3.resource(
                 's3',
                 aws_access_key_id=access_key,
                 aws_secret_access_key=secret_key,
@@ -51,6 +57,34 @@ class S3Client:
             print(f'Bucket {bucket_name} deleted successfully.')
         except Exception as e:
             print(f'Failed to delete bucket {bucket_name}: {e}')
+
+    def download_file(self, bucket_name, object_name, file_name):
+        try:
+            self.s3.download_file(bucket_name, object_name, file_name)
+            print(f'File {object_name} downloaded from {bucket_name} to {file_name}.')
+        except Exception as e:
+            print(f'Failed to download file {object_name} from bucket {bucket_name}: {e}')
+
+
+    def download_directory(self, bucket_name, s3_folder, local_dir=None):
+        """
+        Download the contents of a folder directory
+        Args:
+            bucket_name: the name of the s3 bucket
+            s3_folder: the folder path in the s3 bucket
+            local_dir: a relative or absolute directory path in the local file system
+        """
+        bucket = self.s3_resource.Bucket(bucket_name)
+        for obj in bucket.objects.filter(Prefix=s3_folder):
+            print(f"Downloading {obj.key}")
+            target = obj.key if local_dir is None \
+                else os.path.join(local_dir, os.path.relpath(obj.key, s3_folder))
+            if not os.path.exists(os.path.dirname(target)):
+                os.makedirs(os.path.dirname(target))
+            if obj.key[-1] == '/':
+                continue
+            bucket.download_file(obj.key, target)
+
 
 if __name__ == "__main__":
 
