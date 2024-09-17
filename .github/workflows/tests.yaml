@@ -25,16 +25,18 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r $(pwd)/training/requirements.txt
-    
+
     - name: Set up AWS Credentials
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
 
     - name: Set PYTHONPATH and run tests
       run: |
         export PYTHONPATH=$PYTHONPATH:$(pwd)
-        export PYTHONPATH=$PYTHONPATH:$(pwd)/trainig/
+        export PYTHONPATH=$PYTHONPATH:$(pwd)/training/
         cd $(pwd)/training
         echo $PYTHONPATH
         pytest
