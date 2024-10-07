@@ -1,0 +1,25 @@
+ops:
+  load_data_from_S3:
+    config:
+      bucket_name: "mlp-data-2024"
+      s3_folder: "data_mlp/val_50"
+      local_dir: "/home/user/mlp/orchestration/dagster/data"
+
+  run_inference:
+    config:
+      confidence: 0.5
+      model_dir: "/home/user/Documents/test_model"
+      data_dir: "/home/user/mlp/orchestration/dagster/data"
+      ann_save_path: "/home/user/mlp/orchestration/dagster/inference_results"
+
+  upload_inference_results:
+    config:
+      bucket_name: "mlp-data-2024"
+      s3_folder: "inference_results"
+      ann_save_path: "/home/user/mlp/orchestration/dagster/inference_results"
+
+resources:
+  s3_client:
+    config:
+      aws_access_key_id: "AKIASI5UH4GGQ2MFVT4G"
+      aws_secret_access_key: "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"
