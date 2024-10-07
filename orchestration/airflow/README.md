@@ -1,6 +1,13 @@
 # Installing Airflow
 Make sure you have installed kind and kubectl.
 
+
+```bash
+export WANDB_API_KEY=your_wandb_api_key
+export AWS_ACCESS_KEY_ID=your_aws_access_key_id
+export AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
+```
+
 ```bash
 export AIRFLOW_HOME=$PWD/airflow
 AIRFLOW_VERSION=2.10.2
@@ -12,6 +19,8 @@ airflow standalone
 
 pip install -r requirements.txt
 ```
+
+
 
 Open ui at:
 http://0.0.0.0:8080
