@@ -115,3 +115,18 @@ Testing out module contains in three parts:
 - Testing the code
 - Testing the model
 - Testing the dataset
+
+
+
+
+## Store model
+To store model at huggingface model hub run the following command:
+
+```bash
+python src/save_model.py \
+    --project <project_name> \
+    --entity <user_naem> \
+    --name <model_name> \
+    --model_dir <path_to_model> \
+    --artifact_name <artifact_name>
+```
