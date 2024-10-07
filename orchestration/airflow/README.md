@@ -1,4 +1,5 @@
 # Installing Airflow
+Make sure you have installed kind and kubectl.
 
 ```bash
 export AIRFLOW_HOME=$PWD/airflow
@@ -15,6 +16,15 @@ pip install -r requirements.txt
 Open ui at:
 http://0.0.0.0:8080
 
+Create a k8s namespace
+```bash
+kubectl create namespace default2
+```
+
+Add a volume for the DAGs
+```bash
+kubectl create -f ./volumes/volume.yaml
+```
 
 To trigger train pipeline
 Find in iu `train_dag` and run it with green arrow button
