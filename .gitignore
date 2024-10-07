@@ -9,4 +9,4 @@ launch.json
 .vscode/
 .pytest_cache/
 __pycache__/
-wandb/
+wandb/data/images
