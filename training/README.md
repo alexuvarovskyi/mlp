@@ -32,6 +32,14 @@ To evaluate the model, you need to run the following command:
 python src/eval.py --checkpoint <path_to_checkpoint> --data_path <path_to_data> --ann_path <path_to_ann>
 ```
 
+## Hyperparameter tuning
+We already rpedefined some hyperparameter arguments in train file
+To run tuning run the following command:
+
+```bash
+python src/hyp_search.py --config <path/to/config.yaml>
+```
+
 # Model Card
 ---
 library_name: transformers
