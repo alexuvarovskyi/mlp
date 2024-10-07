@@ -101,16 +101,3 @@ class S3Client:
                     print(f'Uploaded {local_file_path} to {bucket_name}/{s3_path}')
         except Exception as e:
             print(f'Failed to upload directory {local_dir} to {bucket_name}: {e}')
-
-
-if __name__ == "__main__":
-    client = S3Client(
-        access_key='AKIASI5UH4GGQ2MFVT4G',
-        secret_key='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',
-        endpoint_url='https://s3.amazonaws.com'
-    )
-    client.download_directory(
-        bucket_name='mlp-data-2024',
-        s3_folder='data_mlp/train_50',
-        local_dir='/home/user/mlp/training/test_dir'
-    )
