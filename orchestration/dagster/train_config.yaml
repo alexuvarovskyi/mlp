@@ -1,0 +1,20 @@
+ops:
+  download_data_from_S3:
+    config:
+      bucket_name: "mlp-data-2024"
+      s3_folder: "data_mlp/train_50"
+      local_dir: "/home/user/mlp/orchestration/dagster/data"
+  train_model:
+    config:
+      config_file: "/home/user/mlp/training/src/config.yaml"
+      model_output_dir: "/home/user/mlp/orchestration/dagster/model_output"
+  upload_model:
+    config:
+      bucket_name: "mlp-data-2024"
+      s3_folder: "models"
+      model_name: "rtdetr_dagster"
+resources:
+  s3_client:
+    config:
+      aws_access_key_id: "AKIASI5UH4GGQ2MFVT4G"
+      aws_secret_access_key: "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"
