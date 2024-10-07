@@ -86,6 +86,7 @@ def train(config: dict[str, any]):
         compute_metrics=eval_compute_metrics_fn,
     )
     trainer.train()
+    trainer.save_model(config['model']['output_dir'])
 
 if __name__ == "__main__":
     args = parse_args()
