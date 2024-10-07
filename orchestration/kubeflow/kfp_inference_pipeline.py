@@ -16,6 +16,9 @@ IMAGE = "alexuvarovskii/training_mlp:latest"
 # run inference
 # save results
 
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+
 
 @dsl.component(base_image=IMAGE)
 def load_data_from_s3(s3_access_key: str, s3_secret_key: str, s3_bucket: str, s3_folder: str, local_dir: OutputPath()):
@@ -95,8 +98,8 @@ def inferece_pipeline(
 
 
 if __name__ == "__main__":
-    s3_access_key = "AKIASI5UH4GGQ2MFVT4G"
-    s3_secret_key = "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"
+    s3_access_key = AWS_ACCESS_KEY_ID
+    s3_secret_key = AWS_SECRET_ACCESS_KEY
     s3_bucket = "mlp-data-2024"
     model_dir = "data_mlp/test_model/"
     data_dir = "data_mlp/val_50/"
