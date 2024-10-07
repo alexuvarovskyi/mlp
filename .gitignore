@@ -6,3 +6,7 @@ data/labels.json
 labeling/
 launch.json
 .DS_Store
+.vscode/
+.pytest_cache/
+__pycache__/
+wandb/data/images
