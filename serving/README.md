@@ -66,3 +66,11 @@ How to make a request:
 ```bash
 curl -X POST "http://localhost:8000/predict/" -F "image=@/path/to/image.jpg" -F "threshold=0.5"
 ```
+
+
+## Kubernetes Deployment
+```bash
+kubectl apply -f k8s/deployment.yaml 
+kubectl apply -f k8s/service.yaml
+kubectl port-forward <pod_name> 8000:8000
+```
