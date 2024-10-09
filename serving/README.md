@@ -40,3 +40,24 @@ Run:
 ```bash
 docker run -it --rm -p 7860:7860 gradio_app:latest
 ```
+
+
+# FastAPI
+## Local Deployment
+```bash
+pip install -r requirements.txt
+python fastapi_server.py
+```
+
+## Build Container
+```bash
+docker build \
+    --build-arg AWS_ACCESS_KEY_ID=key \
+    --build-arg AWS_SECRET_ACCESS_KEY="secret_key" \
+    -t fastapi_app:latest .
+```
+
+Run:
+```bash
+docker run -it --rm -p 8000:8000 fastapi_app:latest
+```
