@@ -61,3 +61,8 @@ Run:
 ```bash
 docker run -it --rm -p 8000:8000 fastapi_app:latest
 ```
+
+How to make a request:
+```bash
+curl -X POST "http://localhost:8000/predict/" -F "image=@/path/to/image.jpg" -F "threshold=0.5"
+```
