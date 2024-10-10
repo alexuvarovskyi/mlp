@@ -25,7 +25,7 @@ def test_index():
     assert data["message"] == "OK"
     assert "model_loaded" in data["data"]
 
-# @pytest.mark.skipif(os.environ.get("MODEL_AVAILABLE") != "1", reason="Model not available")
+@pytest.mark.skipif(os.environ.get("MODEL_AVAILABLE") != "1", reason="Model not available")
 def test_predict(test_image):
     """Test the prediction endpoint with an example image."""
     # Simulate sending the image as form data
