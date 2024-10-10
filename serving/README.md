@@ -69,8 +69,17 @@ curl -X POST "http://localhost:8000/predict/" -F "image=@/path/to/image.jpg" -F 
 
 
 ## Kubernetes Deployment
+
+Add secrets to the cluster:
+```bash
+kubectl create secret generic aws-secret \
+    --from-literal=aws_access_key_id=key \
+    --from-literal=aws_secret_access_key="secret_key"
+```
+
 ```bash
 kubectl apply -f k8s/deployment.yaml 
 kubectl apply -f k8s/service.yaml
 kubectl port-forward <pod_name> 8000:8000
 ```
+And then use API as described above.
