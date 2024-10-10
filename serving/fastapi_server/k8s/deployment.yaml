@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-deployment
+  labels:
+    app: fastapi
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: fastapi
+  template:
+    metadata:
+      labels:
+        app: fastapi
+    spec:
+      containers:
+      - name: fastapi-container
+        image: alexuvarovskii/fastapi_app:latest 
+        ports:
+        - containerPort: 8000
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: aws_access_key_id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: aws_secret_access_key
+        resources:
+          requests:
+            memory: "4096Mi"
+            cpu: "2"
+          limits:
+            memory: "10Gi"
+            cpu: "4"
