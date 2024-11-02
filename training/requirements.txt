@@ -14,3 +14,4 @@ pytest==8.3.3
 pycocotools==2.0.8
 python-dotenv==1.0.1
 boto3==1.34.158
+albucore==0.0.16
