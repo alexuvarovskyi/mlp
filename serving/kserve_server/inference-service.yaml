@@ -1,0 +1,23 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: fastapi-object-detection
+spec:
+  predictor:
+    containers:
+      - name: kserve-container
+        image: alexuvarovskii/fastapi_app2:latest
+        ports:
+          - containerPort: 8000  # Port should match the port exposed in your Dockerfile
+        env:
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: aws-credentials
+                key: AWS_ACCESS_KEY_ID
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: aws-credentials
+                key: AWS_SECRET_ACCESS_KEY
+
